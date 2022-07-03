@@ -1,0 +1,21 @@
+name: Package Project
+
+# Controls when the workflow will run
+on: [ push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # get the code under $GITHUB_WORKSPACE directory
+      - uses: actions/checkout@v2
+      # get the python
+      - name: Set up Python 3
+        uses: actions/setup-python@v3
+      # zainstaluj wymagane biblioteki
+      - name: Install deps
+        run: pip3 install -r requirements.txt
+      # dla kazdej zmiany, uruchom testy
+      - name: Run tests
+        run: PYTHONPATH=. py.test --verbose -s
